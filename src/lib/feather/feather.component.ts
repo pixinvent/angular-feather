@@ -11,6 +11,7 @@ import { uppercamelcase } from './utils';
 })
 export class FeatherComponent implements OnChanges {
   @Input() name!: string;
+  @Input() size!: string;
 
   constructor(
     @Inject(ElementRef) private elem: ElementRef,
@@ -21,7 +22,7 @@ export class FeatherComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     // icons are provided as an array of objects because of "multi: true"
     const icons = Object.assign({}, ...(this.icons as any as object[]));
-    const svg = icons[ uppercamelcase(changes.name.currentValue) ] || '';
+    const svg = icons[ uppercamelcase(changes.name.currentValue), changes.size.currentValue ] || '';
 
     if (!svg) {
       console.warn(
